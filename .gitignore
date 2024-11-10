@@ -1,3 +1,6 @@
 node_modules/
 .next/
 *.node
+.env
+.env.local.env
+.env.local
