@@ -75,7 +75,7 @@ export default async function handler(req, res) {
           ],
         },
       ],
-      max_tokens: 500,
+      max_tokens: 800,
     });
 
     // Clean up the temporary file
