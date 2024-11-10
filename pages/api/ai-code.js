@@ -75,7 +75,16 @@ export default async function handler(req, res) {
                 "fragrance_suggestion": "A luxury perfume/cologne recommendation that matches the mood, style, and personality shown in the image, including scent notes and brand",
                 "cosmetic_suggestions": "Professional aesthetic medicine suggestions including potential surgical and non-surgical enhancements (e.g., Botox, fillers, surgical procedures) to enhance facial features and skin quality. Include estimated recovery times if applicable.",
                 "eyewear_suggestions": "Personalized eyewear recommendations based on face shape, style, and current trends. Include specific frame styles, brands, and colors that would complement the person's features",
-                "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"]
+                "symbolic_meaning": "Deep analysis of symbols, metaphors, and hidden meanings present in the image",
+                "cultural_significance": "Analysis of cultural references, traditions, and societal implications",
+                "psychological_insight": "Psychological interpretation of body language, expressions, and environmental cues",
+                "artistic_elements": "Analysis of composition, color theory, lighting, and artistic techniques used",
+                "historical_context": "Connections to historical periods, movements, or significant moments",
+                "haircut_suggestion": "Detailed haircut recommendations including style, length, layers, and face-framing elements that would enhance features. Include celebrity references if applicable",
+                "hair_color_suggestion": "Recommended hair color palette including base color, highlights, lowlights, or balayage techniques that would complement skin tone and eyes",
+                "winter_wear_suggestion": "Curated winter wardrobe suggestions including outerwear, accessories, and layering pieces that match the person's style and body type",
+                "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
+                "business_opportunity": "A detailed analysis of potential business opportunities based on the image's elements, including market gaps, innovative ideas, and monetization strategies that could lead to significant financial gains. Include specific action steps and timeline."
               }`
             },
             {
@@ -128,13 +137,70 @@ export default async function handler(req, res) {
       fragrance_suggestion: parsedContent.fragrance_suggestion || "No fragrance suggestion available",
       cosmetic_suggestions: parsedContent.cosmetic_suggestions || "No cosmetic suggestions available",
       eyewear_suggestions: parsedContent.eyewear_suggestions || "No eyewear suggestions available",
-      tags: Array.isArray(parsedContent.tags) ? parsedContent.tags : []
+      symbolic_meaning: parsedContent.symbolic_meaning || "No symbolic analysis available",
+      cultural_significance: parsedContent.cultural_significance || "No cultural analysis available",
+      psychological_insight: parsedContent.psychological_insight || "No psychological insight available",
+      artistic_elements: parsedContent.artistic_elements || "No artistic analysis available",
+      historical_context: parsedContent.historical_context || "No historical context available",
+      haircut_suggestion: parsedContent.haircut_suggestion || "No haircut suggestions available",
+      hair_color_suggestion: parsedContent.hair_color_suggestion || "No hair color suggestions available",
+      winter_wear_suggestion: parsedContent.winter_wear_suggestion || "No winter wear suggestions available",
+      tags: Array.isArray(parsedContent.tags) ? parsedContent.tags : [],
+      suggested_cities: [
+        {
+          city: "Kyoto, Japan",
+          contribution: "Will enhance your appreciation for mindfulness and traditional aesthetics"
+        },
+        {
+          city: "Barcelona, Spain",
+          contribution: "Will awaken your creative spirit through modernist architecture"
+        },
+        {
+          city: "Copenhagen, Denmark",
+          contribution: "Will inspire your sense of design and sustainable living"
+        }
+      ].map(city => `${city.city}: ${city.contribution}`).join('\n\n'),
+      business_opportunity: parsedContent.business_opportunity || "No business opportunities identified"
     };
 
-    const tags = safeResponse.tags || [];
-    while (tags.length < 5) {
-      tags.push(`Tag ${tags.length + 1}`);
-    }
+    const generateTags = (content) => {
+      const allText = [
+        content.title,
+        content.description,
+        content.emotional_analysis,
+        content.fashion_commentary,
+        content.symbolic_meaning,
+        content.cultural_significance,
+        content.psychological_insight,
+        content.artistic_elements,
+        content.business_opportunity
+      ].join(' ');
+
+      // Extract key words and phrases
+      const words = allText.toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .split(/\s+/)
+        .filter(word => word.length > 3) // Filter out short words
+        .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+
+      // If we have parsed tags from the API, include them first
+      const existingTags = Array.isArray(content.tags) ? content.tags : [];
+      const combinedTags = [...existingTags, ...words];
+      
+      // Select 15 unique tags, prioritizing existing tags
+      const finalTags = combinedTags
+        .filter((value, index, self) => self.indexOf(value) === index) // Remove duplicates
+        .slice(0, 15);
+
+      // Ensure we always have 15 tags
+      while (finalTags.length < 15) {
+        finalTags.push(`Tag ${finalTags.length + 1}`);
+      }
+
+      return finalTags;
+    };
+
+    const tags = generateTags(parsedContent);
 
     return res.status(200).json({
       ...safeResponse,

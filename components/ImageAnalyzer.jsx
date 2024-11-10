@@ -1,6 +1,6 @@
 // components/ImageAnalyzer.jsx
 import React, { useState } from 'react';
-import { Upload, Camera, ImageIcon, TagIcon, Type, FileText, Heart, Quote, Scissors, Sparkles, Droplet, Flag, Stethoscope, Glasses } from 'lucide-react';
+import { Upload, Camera, ImageIcon, TagIcon, Type, FileText, Heart, Quote, Scissors, Sparkles, Droplet, Flag, Stethoscope, Glasses, Lightbulb, Globe2, Brain, Palette, Clock, DollarSign } from 'lucide-react';
 
 const ImageAnalyzer = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -154,6 +154,41 @@ const ImageAnalyzer = () => {
                   icon={<Stethoscope />} 
                   title="Cosmetic Suggestions" 
                   content={analysis.cosmetic_suggestions} 
+                />
+                <ResultCard 
+                  icon={<Lightbulb />} 
+                  title="Symbolic Meaning" 
+                  content={analysis.symbolic_meaning} 
+                />
+                <ResultCard 
+                  icon={<Globe2 />} 
+                  title="Cultural Significance" 
+                  content={analysis.cultural_significance} 
+                />
+                <ResultCard 
+                  icon={<Brain />} 
+                  title="Psychological Insight" 
+                  content={analysis.psychological_insight} 
+                />
+                <ResultCard 
+                  icon={<Palette />} 
+                  title="Artistic Elements" 
+                  content={analysis.artistic_elements} 
+                />
+                <ResultCard 
+                  icon={<Clock />} 
+                  title="Historical Context" 
+                  content={analysis.historical_context} 
+                />
+                <ResultCard 
+                  icon={<Globe2 />} 
+                  title="Suggested Cities" 
+                  content={analysis.suggested_cities} 
+                />
+                <ResultCard 
+                  icon={<DollarSign />} 
+                  title="Million Dollar Opportunity" 
+                  content={analysis.business_opportunity} 
                 />
                 <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2 mb-3 text-gray-700">
