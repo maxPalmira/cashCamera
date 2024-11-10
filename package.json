@@ -1,0 +1,32 @@
+{
+  "name": "cashcamera",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "latest",
+    "lucide-react": "latest",
+    "multer": "^1.4.5-lts.1",
+    "next": "^14.0.0",
+    "openai": "^4.71.1",
+    "postcss": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "latest",
+    "lucide-react": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
+  }
+}
