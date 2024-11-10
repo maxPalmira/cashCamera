@@ -1,6 +1,6 @@
 // components/ImageAnalyzer.jsx
 import React, { useState } from 'react';
-import { Upload, Camera, ImageIcon, TagIcon, Type, FileText } from 'lucide-react';
+import { Upload, Camera, ImageIcon, TagIcon, Type, FileText, Heart, Quote, Scissors, Sparkles, Droplet, Flag, Stethoscope, Glasses } from 'lucide-react';
 
 const ImageAnalyzer = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -42,38 +42,6 @@ const ImageAnalyzer = () => {
     }
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.currentTarget.classList.add('border-blue-400', 'bg-blue-50/30');
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    if (!preview) {
-      e.currentTarget.classList.remove('border-blue-400', 'bg-blue-50/30');
-    }
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleDeleteTag = (indexToDelete) => {
-    setAnalysis(prev => ({
-      ...prev,
-      tags: prev.tags.filter((_, index) => index !== indexToDelete)
-    }));
-  };
-
   return (
     <div className="max-w-4xl mx-auto">
       <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-8 border border-gray-100">
@@ -92,9 +60,6 @@ const ImageAnalyzer = () => {
             <div 
               className={`relative border-2 border-dashed rounded-xl p-8 transition-all duration-300
                 ${preview ? 'border-blue-400 bg-blue-50/30' : 'border-gray-200 hover:border-gray-300'}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
             >
               <input
                 type="file"
@@ -148,6 +113,48 @@ const ImageAnalyzer = () => {
               <>
                 <ResultCard icon={<Type />} title="Title" content={analysis.title} />
                 <ResultCard icon={<FileText />} title="Description" content={analysis.description} />
+                <ResultCard 
+                  icon={<Heart />} 
+                  title="Emotional Analysis" 
+                  content={analysis.emotional_analysis} 
+                />
+                <ResultCard 
+                  icon={<Quote />} 
+                  title="Relevant Quote" 
+                  content={analysis.relevant_quote} 
+                />
+                <ResultCard 
+                  icon={<Scissors />} 
+                  title="Fashion Commentary" 
+                  content={analysis.fashion_commentary} 
+                />
+                {analysis.beauty_analysis && (
+                  <ResultCard 
+                    icon={<Sparkles />} 
+                    title="Beauty Analysis" 
+                    content={analysis.beauty_analysis} 
+                  />
+                )}
+                <ResultCard 
+                  icon={<Glasses />} 
+                  title="Eyewear Suggestions" 
+                  content={analysis.eyewear_suggestions} 
+                />
+                <ResultCard 
+                  icon={<Flag />} 
+                  title="Political Analysis" 
+                  content={analysis.political_analysis} 
+                />
+                <ResultCard 
+                  icon={<Droplet />} 
+                  title="Fragrance Suggestion" 
+                  content={analysis.fragrance_suggestion} 
+                />
+                <ResultCard 
+                  icon={<Stethoscope />} 
+                  title="Cosmetic Suggestions" 
+                  content={analysis.cosmetic_suggestions} 
+                />
                 <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2 mb-3 text-gray-700">
                     <TagIcon className="w-5 h-5" />
@@ -157,15 +164,9 @@ const ImageAnalyzer = () => {
                     {analysis.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-full font-medium group relative"
+                        className="bg-blue-50 text-blue-700 text-sm px-3 py-1 rounded-full font-medium"
                       >
                         {tag}
-                        <button
-                          onClick={() => handleDeleteTag(index)}
-                          className="absolute -top-1 -right-1 hidden group-hover:flex bg-red-500 text-white rounded-full w-4 h-4 items-center justify-center text-xs"
-                        >
-                          ×
-                        </button>
                       </span>
                     ))}
                   </div>
