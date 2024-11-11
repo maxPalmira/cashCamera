@@ -1,6 +1,6 @@
 // components/ImageAnalyzer.jsx
 import React, { useState } from 'react';
-import { Upload, Camera, ImageIcon, TagIcon, Type, FileText, Heart, Quote, Scissors, Sparkles, Droplet, Flag, Stethoscope, Glasses, Lightbulb, Globe2, Brain, Palette, Clock, DollarSign } from 'lucide-react';
+import { Upload, Camera, ImageIcon, TagIcon, Type, FileText, Heart, Quote, Scissors, Sparkles, Droplet, Flag, Stethoscope, Glasses, Lightbulb, Globe2, Brain, Palette, Clock, DollarSign, Zap, Flower, BookOpen } from 'lucide-react';
 
 const ImageAnalyzer = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -189,6 +189,21 @@ const ImageAnalyzer = () => {
                   icon={<DollarSign />} 
                   title="Million Dollar Opportunity" 
                   content={analysis.business_opportunity} 
+                />
+                <ResultCard 
+                  icon={<Flower />} 
+                  title="Chakra Analysis" 
+                  content={analysis.chakra_analysis} 
+                />
+                <ResultCard 
+                  icon={<Zap />} 
+                  title="Energy Reading" 
+                  content={analysis.energy_reading} 
+                />
+                <ResultCard 
+                  icon={<BookOpen />} 
+                  title="Recommended Books" 
+                  content={analysis.book_recommendations} 
                 />
                 <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
                   <div className="flex items-center gap-2 mb-3 text-gray-700">

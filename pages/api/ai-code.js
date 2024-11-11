@@ -84,7 +84,11 @@ export default async function handler(req, res) {
                 "hair_color_suggestion": "Recommended hair color palette including base color, highlights, lowlights, or balayage techniques that would complement skin tone and eyes",
                 "winter_wear_suggestion": "Curated winter wardrobe suggestions including outerwear, accessories, and layering pieces that match the person's style and body type",
                 "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
-                "business_opportunity": "A detailed analysis of potential business opportunities based on the image's elements, including market gaps, innovative ideas, and monetization strategies that could lead to significant financial gains. Include specific action steps and timeline."
+                "business_opportunity": "A detailed analysis of potential business opportunities based on the image's elements, including market gaps, innovative ideas, and monetization strategies that could lead to significant financial gains. Include specific action steps and timeline.",
+                "chakra_analysis": "Detailed analysis of the chakra energies present in the image, including which chakras are dominant, blocked, or need balancing. Include specific recommendations for chakra alignment.",
+                "energy_reading": "Comprehensive analysis of the energetic frequencies, auras, and vibrational patterns detected in the image. Include both positive and negative energy fields, and suggestions for energy optimization.",
+                "suggested_cities": "Three personalized city recommendations based on the image's aesthetic, mood, and style. Include how each city would impact personal growth. Format: CityName, Country: Impact description",
+                "book_recommendations": "Three to five personalized book recommendations based on the image analysis, including title, author, and why it would resonate with the person or scene. Format each recommendation on a new line."
               }`
             },
             {
@@ -146,21 +150,11 @@ export default async function handler(req, res) {
       hair_color_suggestion: parsedContent.hair_color_suggestion || "No hair color suggestions available",
       winter_wear_suggestion: parsedContent.winter_wear_suggestion || "No winter wear suggestions available",
       tags: Array.isArray(parsedContent.tags) ? parsedContent.tags : [],
-      suggested_cities: [
-        {
-          city: "Kyoto, Japan",
-          contribution: "Will enhance your appreciation for mindfulness and traditional aesthetics"
-        },
-        {
-          city: "Barcelona, Spain",
-          contribution: "Will awaken your creative spirit through modernist architecture"
-        },
-        {
-          city: "Copenhagen, Denmark",
-          contribution: "Will inspire your sense of design and sustainable living"
-        }
-      ].map(city => `${city.city}: ${city.contribution}`).join('\n\n'),
-      business_opportunity: parsedContent.business_opportunity || "No business opportunities identified"
+      suggested_cities: parsedContent.suggested_cities || "No city suggestions available",
+      business_opportunity: parsedContent.business_opportunity || "No business opportunities identified",
+      chakra_analysis: parsedContent.chakra_analysis || "No chakra analysis available",
+      energy_reading: parsedContent.energy_reading || "No energy reading available",
+      book_recommendations: parsedContent.book_recommendations || "No book recommendations available"
     };
 
     const generateTags = (content) => {
@@ -173,7 +167,10 @@ export default async function handler(req, res) {
         content.cultural_significance,
         content.psychological_insight,
         content.artistic_elements,
-        content.business_opportunity
+        content.business_opportunity,
+        content.chakra_analysis,
+        content.energy_reading,
+        content.book_recommendations
       ].join(' ');
 
       // Extract key words and phrases
